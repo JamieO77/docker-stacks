@@ -1,5 +1,7 @@
+##VIEW FILES IN RAW
+
 # docker-stacks
-* Collection of docker stacks
+This is my Collection of docker stacks
 
 
 # Web Development stacks:
@@ -8,8 +10,14 @@
 
 
 # Office stacks:
-
+* docker-pdf-tools-stack.md
 
 
 
 # Tools stacks:
+* docker-lan-tools.md
+* docker-dev-tolls.md
+
+
+# Automation stacks:
+* docket-n8n-stacl.md
