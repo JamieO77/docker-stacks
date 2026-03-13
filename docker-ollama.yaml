@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # 1. The LLM Engine (Ollama)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: local_llm_engine
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - TZ=Europe/Lisbon
+    # Uncomment the block below if you have an NVIDIA GPU and the NVIDIA Container Toolkit installed
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # 2. The Chat Interface (Open WebUI)
+  open_webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: local_llm_interface
+    restart: unless-stopped
+    ports:
+      - "3005:8080"
+    volumes:
+      - open_webui_data:/app/backend/data
+    environment:
+      - TZ=Europe/Lisbon
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_AUTH=False # Set to True to require user login accounts
+    depends_on:
+      - ollama
+
+volumes:
+  ollama_data:
+  open_webui_data:
