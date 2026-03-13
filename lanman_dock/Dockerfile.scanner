@@ -1,0 +1,29 @@
+# Use a lightweight Python environment
+FROM python:3.11-slim
+
+# Install system network tools and Cron
+RUN apt-get update && apt-get install -y \
+    nmap \
+    libpcap-dev \
+    iputils-ping \
+    cron \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python libraries
+RUN pip install --no-cache-dir mysql-connector-python scapy python-nmap
+
+WORKDIR /app
+
+# Schedule the scripts:
+# - scan.py runs at the top of every hour (Minute 0)
+# - cleanup.py runs every day at midnight (00:00)
+RUN echo "0 * * * * root /usr/local/bin/python /app/scripts/scan.py >> /var/log/cron.log 2>&1" > /etc/cron.d/lanman_cron && \
+    echo "0 0 * * * root /usr/local/bin/python /app/scripts/cleanup.py >> /var/log/cron.log 2>&1" >> /etc/cron.d/lanman_cron && \
+    chmod 0644 /etc/cron.d/lanman_cron && \
+    crontab /etc/cron.d/lanman_cron
+
+# Create a log file to track script output
+RUN touch /var/log/cron.log
+
+# Start Cron and keep the container alive by reading the log file
+CMD cron && tail -f /var/log/cron.log
