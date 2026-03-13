@@ -28,8 +28,9 @@ Horizontally scalable architectures for enterprise-grade webhook routing and bac
 
 ### Artificial Intelligence (is it...) Agentic maybe
 Self-hosted autonomous AI agent gateways and local execution environments.
-* **OpenClaw Autonomous Agent:** [`docker-openclaw-stack.yml`](./docker-openclaw-stack.yml) | [View Architecture Documentation](./docker-openclaw-stack.md)
-* 
+* **OpenClaw Autonomous Agent:** [`docker-openclaww.yml`](./docker-openclaw.yml) | [View Architecture Documentation](./docker-openclaw.md)
+* **Ollama Lareg Language Model or LLM:** [`docker-ollama.yml`](./docker-ollama.yml) | [View Architecture Documentation](./docker-ollama.md)
+  
 ### Specialized Projects
 Dedicated microservice infrastructures for specific custom applications.
 * **Lanman Network Scanner:** [`lanman-dock/docker-compose.yml`](./lanman-dock/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
