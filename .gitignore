@@ -1,0 +1,31 @@
+# Local Environment Secrets
+.env
+.env.local
+.env.production
+
+# Runtime Logs
+logs/
+*.log
+cron.log
+
+# Persistent Volume Data Mounts
+mysql_data_v2/
+www_data_v2/
+myspeed_data/
+portracker_data/
+postgres_data/
+n8n_data/
+openclaw_config/
+openclaw_workspace/
+ollama_data/
+open_webui_data/
+stirling_training_data/
+stirling_configs/
+handbrake_config/
+desktop_data/
+
+# OS/IDE Generated Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
