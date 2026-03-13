@@ -28,4 +28,4 @@ Horizontally scalable architectures for enterprise-grade webhook routing and bac
 
 ### Specialized Projects
 Dedicated microservice infrastructures for specific custom applications.
-* **Lanman Network Scanner:** [`docker-lanman-stack.yml`](./docker-lanman-stack.yml) | [View Architecture Documentation](./docker-lanman-stack.md)
+* **Lanman Network Scanner:** [`lanman-dock/docker-compose.yml`](./lanman-dock/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
