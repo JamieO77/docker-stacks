@@ -6,7 +6,6 @@ A highly scalable, production-ready containerized deployment for n8n. This archi
 ## Service Components
 
 ### 1. Persistent Storage Layer (`postgres`)
-* **Image:** `postgres:16`
 * **Role:** Primary relational database for workflow definitions, execution history, and user credentials.
 * **Configuration:**
   * Defines discrete user credentials (`n8nuser_db`).
@@ -15,14 +14,12 @@ A highly scalable, production-ready containerized deployment for n8n. This archi
 * **Storage:** Utilizes the `postgres_data` volume for data persistence.
 
 ### 2. Message Broker Layer (`redis`)
-* **Image:** `redis:7`
 * **Role:** In-memory data store managing the task queue for distributed execution.
 * **Configuration:**
   * Implements a standard `redis-cli ping` health check.
   * Handles the delegation of workflow execution jobs from the main `n8n` instance to the `n8n-worker` instances.
 
 ### 3. Main Application Node (`n8n`)
-* **Image:** `docker.n8n.io/n8nio/n8n:latest`
 * **Role:** Primary frontend interface, workflow editor, and webhook listener.
 * **Configuration:**
   * Configured in `QUEUE_MODE: true`, delegating heavy processing to workers.
@@ -33,7 +30,6 @@ A highly scalable, production-ready containerized deployment for n8n. This archi
 * **Storage:** Mounts the `n8n_data` volume for shared configuration files and SSH keys.
 
 ### 4. Background Execution Node (`n8n-worker`)
-* **Image:** `docker.n8n.io/n8nio/n8n:latest`
 * **Role:** Dedicated execution engine for running workflows.
 * **Configuration:**
   * Overrides the default command with `worker` to listen to the Redis queue rather than serving the UI.
@@ -42,7 +38,6 @@ A highly scalable, production-ready containerized deployment for n8n. This archi
 * **Storage:** Mounts the same `n8n_data` volume as the main node to ensure access to required shared files.
 
 ### 5. Code Execution Environment (`runners`)
-* **Image:** `n8nio/runners:latest`
 * **Role:** Isolated execution environment specifically for running Python and Node.js code blocks within n8n workflows.
 * **Configuration:**
   * Authenticates with the main n8n application using a shared `N8N_RUNNERS_AUTH_TOKEN`.
