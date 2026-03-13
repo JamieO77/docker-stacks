@@ -1,0 +1,13 @@
+# Use PHP 8.2 with Apache
+FROM php:8.2-apache
+
+# Install all required extensions for Scriptcase
+RUN apt-get update && \
+    apt-get install -y libzip-dev libpng-dev libjpeg-dev libonig-dev libxml2-dev unzip libfreetype6-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo pdo_mysql zip mbstring gd mysqli && \
+    echo 'date.timezone=Europe/Lisbon' > /usr/local/etc/php/conf.d/timezone.ini && \
+    a2enmod rewrite
+
+# Keep Apache running
+CMD ["apache2-foreground"]
