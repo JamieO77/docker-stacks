@@ -6,7 +6,6 @@ A containerized utility stack dedicated to heavy file manipulation and localized
 ## Service Components
 
 ### 1. Document Processing Engine (`stirling-pdf`)
-* **Image:** `stirlingtools/stirling-pdf:latest`
 * **Role:** Centralized platform for PDF manipulation, conversion, and OCR capabilities.
 * **Configuration:**
   * Accessible via host port `8081`.
@@ -15,7 +14,6 @@ A containerized utility stack dedicated to heavy file manipulation and localized
 * **Storage:** Utilizes `stirling_configs` for application state and `stirling_training_data` mounted to `/usr/share/tessdata` to retain Tesseract OCR language packs persistently.
 
 ### 2. Video Transcoding Node (`handbrake`)
-* **Image:** `jlesage/handbrake:latest`
 * **Role:** Automated and manual video encoding engine utilizing an embedded VNC web interface.
 * **Configuration:**
   * Accessible via host port `5800` through a browser-based VNC client (`ENABLE_VNC=1`).
