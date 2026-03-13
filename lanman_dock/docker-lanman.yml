@@ -1,0 +1,113 @@
+networks:
+  devnet:
+    driver: bridge
+
+services:
+
+  # 1. The Database
+  mysql:
+    image: mysql:8.0
+    container_name: dev_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: jamieo
+      MYSQL_DATABASE: dev_main
+      MYSQL_USER: jamieo
+      MYSQL_PASSWORD: jamieo
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_v2:/var/lib/mysql
+    networks:
+      - devnet
+
+  # 2. Database Manager
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dev_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8084:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: jamieo
+    networks:
+      - devnet
+
+  # 3. Web Server (PHP 8.2 + Apache + Scriptcase Setup)
+  apache_php:
+    build: 
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: dev_apache
+    restart: unless-stopped
+    ports:
+      - "8089:80"
+    volumes:
+      - www_data_v2:/var/www/html
+      - ./logs:/var/log/apache2
+    environment:
+      TZ: Europe/Lisbon
+    networks:
+      - devnet
+
+  # 4. File Manager
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: dev_filebrowser
+    restart: unless-stopped
+    ports:
+      - "8083:80"
+    volumes:
+      - www_data_v2:/srv/www
+      - mysql_data_v2:/srv/mysql
+      - ./logs:/srv/logs
+      - ./scripts:/srv/scripts
+    networks:
+      - devnet
+
+  # 5. The Python Scanner (Network Mode: Host)
+  python_scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile.scanner
+    container_name: dev_scanner
+    restart: unless-stopped
+    network_mode: host # Required to scan your real LAN
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./scripts:/app/scripts
+    environment:
+      - TZ=Europe/Lisbon
+      - DB_HOST=127.0.0.1
+      - DB_USER=jamieo
+      - DB_PASSWORD=jamieo
+      - DB_NAME=dev_main
+    depends_on:
+      - mysql
+
+  # 6. The Linux Desktop (Ubuntu XFCE)
+  linux_desktop:
+    image: lscr.io/linuxserver/webtop:ubuntu-xfce
+    container_name: dev_desktop
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Lisbon
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./desktop_data:/config
+      - ./scripts:/app/scripts
+    networks:
+      - devnet
+
+volumes:
+  mysql_data_v2:
+  www_data_v2:
