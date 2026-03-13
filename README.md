@@ -9,6 +9,10 @@ A centralized repository of containerized architectures utilized for web develop
 
 ## Repository Index
 
+### First Start - Docker installed....
+See 1st start Docker and Dockhand for a small guide on how to setup docker with dockhand for web based management of your docker environment
+* **Core Development Stack:** [ [View Guide ](./1st start Docker and Dockhand.md)
+
 ### Web Development
 Containerized environments tailored for Scriptcase and PHP application deployment.
 * **Core Development Stack:** [`docker-dev-stack.yml`](./docker-dev-stack.yml) | [View Architecture Documentation](./docker-dev-stack.md)
