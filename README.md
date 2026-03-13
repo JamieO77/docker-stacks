@@ -26,6 +26,10 @@ Hardware-accelerated and localized processing nodes for heavy file manipulation.
 Horizontally scalable architectures for enterprise-grade webhook routing and background task execution.
 * **n8n Workflow Engine:** [`docker-n8n-stack.yml`](./docker-n8n-stack.yml) | [View Architecture Documentation](./docker-n8n-stack.md)
 
+### Artificial Intelligence (is it...) Agentic maybe
+Self-hosted autonomous AI agent gateways and local execution environments.
+* **OpenClaw Autonomous Agent:** [`docker-openclaw-stack.yml`](./docker-openclaw-stack.yml) | [View Architecture Documentation](./docker-openclaw-stack.md)
+* 
 ### Specialized Projects
 Dedicated microservice infrastructures for specific custom applications.
 * **Lanman Network Scanner:** [`lanman-dock/docker-compose.yml`](./lanman-dock/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
