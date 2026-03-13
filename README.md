@@ -1,22 +1,31 @@
+# Personal Docker Stack Repository
 
-# docker-stacks
-This is my Collection of personal docker stacks, you will need to make adjustments within files, change usernames, password, and possible ports.
+## Overview
+A centralized repository of containerized architectures utilized for web development, network diagnostics, document processing, and workflow automation. 
 
+**Deployment Notice:** Prior to executing `docker compose up -d`, you must review and modify each `docker-compose.yml` file. Explicitly adjust environment variables, administrative credentials, mapped host ports, and persistent volume paths to align with your local host environment.
 
-# Web Development stacks:
-* docker-dev-stack.yml
+---
 
-# Office stacks:
-* docker-pdf-tools-stack.yml
+## Repository Index
 
-# Tools stacks:
-* docker-lan-tools.yml
-* docker-dev-tolls.yml
+### Web Development
+Containerized environments tailored for Scriptcase and PHP application deployment.
+* **Core Development Stack:** [`docker-dev-stack.yml`](./docker-dev-stack.yml) | [View Architecture Documentation](./docker-dev-stack.md)
 
-# Automation stacks:
-* docket-n8n-stacl.yml
+### Developer Tools & Diagnostics
+Lightweight utility stacks for frontend UI/UX prototyping, API testing, and network OSINT reconnaissance.
+* **Web Developer Utilities:** [`docker-dev-tools.yml`](./docker-dev-tools.yml) | [View Architecture Documentation](./docker-dev-tools.md)
+* **LAN Monitoring & OSINT:** [`docker-lan-tools.yml`](./docker-lan-tools.yml) | [View Architecture Documentation](./docker-lan-tools.md)
 
+### Office & Media Production
+Hardware-accelerated and localized processing nodes for heavy file manipulation.
+* **Document & Media Tools:** [`docker-pdf-tools-stack.yml`](./docker-pdf-tools-stack.yml) | [View Architecture Documentation](./docker-pdf-tools-stack.md)
 
+### Automation Services
+Horizontally scalable architectures for enterprise-grade webhook routing and background task execution.
+* **n8n Workflow Engine:** [`docker-n8n-stack.yml`](./docker-n8n-stack.yml) | [View Architecture Documentation](./docker-n8n-stack.md)
 
-# LanMan Dock stack
-  * Special stack for my project lanman
+### Specialized Projects
+Dedicated microservice infrastructures for specific custom applications.
+* **Lanman Network Scanner:** [`docker-lanman-stack.yml`](./docker-lanman-stack.yml) | [View Architecture Documentation](./docker-lanman-stack.md)
