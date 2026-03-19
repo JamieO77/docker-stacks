@@ -1,0 +1,26 @@
+networks:
+  lanman-net:
+    external: true
+
+services:
+  python-net:
+    image: mcr.microsoft.com/devcontainers/python:3.11-bookworm
+    privileged: true
+    container_name: lab-python-net
+    restart: always
+    network_mode: "host" # Shares the host IP; discovery tools work perfectly now
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - C:/Users/jamie/Docker/shared_files/lanman_worker/scripts:/scripts
+      - C:/Users/jamie/Docker/shared_files/lanman_worker/logs:/logs
+    command: >
+      sh -c "apt-get update && 
+             apt-get install -y nmap masscan arp-scan iputils-ping bind9-dnsutils net-tools curl traceroute snmp procps && 
+             python3 -m pip install --upgrade pip --break-system-packages &&
+             pip install psutil &&
+             python3 -m pip install scapy mysql-connector-python requests paramiko netmiko speedtest-cli --break-system-packages &&
+             export IFACE=$(ip route | grep default | awk '{print $5}' | head -n 1) &&
+             python3 -u /scripts/lanman_orchestrator.py &&
+             tail -f /dev/null"
