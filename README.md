@@ -40,3 +40,6 @@ Self-hosted autonomous AI agent gateways and local execution environments.
 ### Specialized Projects
 Dedicated microservice infrastructures for specific custom applications.
 * **Lanman Network Scanner:** [`lanman-dock/docker-compose.yml`](./lanman-dock/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
+  
+* **Lanman Network Scanner - HOST:** [`docker-lanman-host/docker-compose.yml`](./docker-lanman-host/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
+* **Lanman Network Scanner - WORKER:** [`docker-lanman-worker/docker-compose.yml`](./docker-lanman-worker/docker-compose.yml) | [View Architecture Documentation](./lanman-dock/README.md)
