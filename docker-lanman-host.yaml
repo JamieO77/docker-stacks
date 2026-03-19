@@ -1,0 +1,62 @@
+networks:
+  lanman-net:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: lanman-mysql
+    restart: unless-stopped
+    command: --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: jamieo
+      MYSQL_DATABASE: lanman
+      MYSQL_USER: jamieo
+      MYSQL_PASSWORD: jamieo
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_v2:/var/lib/mysql
+      - /c/DockerConfigs/init.sql:/data/application/init.sql
+    networks:
+      - lanman-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: lanman-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8084:80"
+    environment:
+      PMA_HOST: lanman-mysql
+      MYSQL_ROOT_PASSWORD: jamieo
+    networks:
+      - lanman-net
+
+  apache-php:
+    image: php:8.1-apache
+    container_name: lanman-apache
+    restart: unless-stopped
+    ports:
+      - "8089:80"
+    volumes:
+      - C:/Users/jamie/Docker/shared_files/lanman:/var/www/html
+      - ./logs:/var/log/apache2
+    environment:
+      TZ: Europe/Lisbon
+    user: "0:0"
+    command: >
+      sh -c "apt-get update && 
+      apt-get install -y --no-install-recommends iputils-ping unzip libzip-dev libpng-dev libjpeg-dev libonig-dev libxml2-dev libfreetype6-dev && 
+      docker-php-ext-configure gd --with-freetype --with-jpeg && 
+      docker-php-ext-install pdo pdo_mysql zip mbstring gd && 
+      echo 'ServerName localhost' >> /etc/apache2/apache2.conf && 
+      echo 'date.timezone=Europe/Lisbon' > /usr/local/etc/php/conf.d/timezone.ini && 
+      apache2-foreground"
+    networks:
+      - lanman-net
+
+volumes:
+  mysql_data_v2:
+  www_data_v2:
