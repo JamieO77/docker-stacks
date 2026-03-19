@@ -1,5 +1,6 @@
 # Personal Docker Stack Repository
 
+### You will need to adust stacks with your own usernames, passwords, keys, and secrets where required!
 ## Overview
 A centralized repository of containerized architectures utilized for web development, network diagnostics, document processing, and workflow automation. 
 
