@@ -9,10 +9,10 @@ services:
     restart: unless-stopped
     command: --bind-address=0.0.0.0
     environment:
-      MYSQL_ROOT_PASSWORD: jamieo
+      MYSQL_ROOT_PASSWORD: your_username
       MYSQL_DATABASE: lanman
-      MYSQL_USER: jamieo
-      MYSQL_PASSWORD: jamieo
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
       MYSQL_ROOT_HOST: '%'
     ports:
       - "3306:3306"
@@ -30,7 +30,7 @@ services:
       - "8084:80"
     environment:
       PMA_HOST: lanman-mysql
-      MYSQL_ROOT_PASSWORD: jamieo
+      MYSQL_ROOT_PASSWORD: your_mysql_password
     networks:
       - lanman-net
 
